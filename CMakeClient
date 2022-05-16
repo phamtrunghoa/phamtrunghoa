@@ -1,0 +1,7 @@
+add_library(clientLib "${CMAKE_CURRENT_SOURCE_DIR}/inc" "${CMAKE_CURRENT_SOURCE_DIR}/src/client.cpp")
+
+add_executable(client.out "${CMAKE_CURRENT_SOURCE_DIR}/src/clientMain.cpp")
+
+target_link_libraries(client.out PUBLIC clientLib)
+
+target_include_directories(clientLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/inc")
