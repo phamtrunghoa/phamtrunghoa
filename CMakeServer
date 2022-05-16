@@ -1,0 +1,7 @@
+add_library(lib "${CMAKE_CURRENT_SOURCE_DIR}/inc" "${CMAKE_CURRENT_SOURCE_DIR}/src/server.cpp")
+
+add_executable(server.out "${CMAKE_CURRENT_SOURCE_DIR}/src/serverMain.cpp")
+
+target_link_libraries(server.out PUBLIC lib)
+
+target_include_directories(lib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/inc")
