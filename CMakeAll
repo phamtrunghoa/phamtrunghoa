@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.10.2)
+project(ServerClient VERSION 1.0.0)
+
+set(GenCodeFile "pyCodeGen.py")
+
+add_custom_command(OUTPUT ${GenCodeFile}
+COMMAND ./pyCodeGen.py --server
+COMMAND ./pyCodeGen.py --client
+COMMENT "Add library to inc"
+WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+
+add_custom_target(ServerClient ALL
+    DEPENDS ${GenCodeFile}
+)
+
+add_subdirectory(Server)
+add_subdirectory(Client)
+
