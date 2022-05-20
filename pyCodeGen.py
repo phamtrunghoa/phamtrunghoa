@@ -131,7 +131,7 @@ def inc_server_path():
     print("*-----------------------------*")
     print("*---- Generating Server.h ----*")
     print("*-----------------------------*")
-    file1 = open(sys.argv[2] + "/server.h", "w")
+    file1 = open(sys.argv[i+1] + "/server.h", "w")
     file1.seek(0, 0)
     file1.write("#include <stdio.h>\n")
     file1.write("#include <stdlib.h>\n")
@@ -193,7 +193,7 @@ def inc_client_path():
     print("*-----------------------------*")
     print("*---- Generating Client.h ----*")
     print("*-----------------------------*")
-    file1 = open(sys.argv[2] + "/client.h", "w")
+    file1 = open(sys.argv[i+1] + "/client.h", "w")
     file1.seek(0, 0)
     file1.write("#include <stdio.h>\n")
     file1.write("#include <stdlib.h>\n")
@@ -237,13 +237,31 @@ def inc_client_path():
     file1.write("};")
     file1.close()
     print("Done")
-if (len(sys.argv) == 2 and sys.argv[1] == "--server"):
-    inc_server()
-elif (len(sys.argv) == 2 and sys.argv[1] == "--client"):
-    inc_client()
-elif (len(sys.argv) == 3 and sys.argv[1] == "--server"):
-    inc_server_path()
-elif (len(sys.argv) == 3 and sys.argv[1] == "--client"):
-    inc_client_path()
-elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
-    help()
+# if (len(sys.argv) == 2 and sys.argv[1] == "--server"):
+#     inc_server()
+# elif (len(sys.argv) == 2 and sys.argv[1] == "--client"):
+#     inc_client()
+# elif (len(sys.argv) == 3 and sys.argv[1] == "--server"):
+#     inc_server_path()
+# elif (len(sys.argv) == 3 and sys.argv[1] == "--client"):
+#     inc_client_path()
+# elif (len(sys.argv) == 2 and sys.argv[1] == "--help"):
+#     help()
+# elif (len(sys.argv) > 2):
+#     if (argv[1] == "--server" or argv[2] == "--server"):
+
+if (len(sys.argv) > 2):
+    for i in range(len(sys.argv) -1):
+        if (sys.argv[i] == "--server"):
+            if (sys.argv[i+1] == "and"):
+                inc_server()
+            elif (sys.argv[i+1] != "and"):
+                inc_server_path()
+        if (sys.argv[i] == "--client"):
+            if (sys.argv[i+1] == "and"):
+                inc_client()
+            elif (sys.argv[i+1] != "and"):
+                inc_client_path()
+else:
+    print("Unrecognize command")
+    print("Please try again")
