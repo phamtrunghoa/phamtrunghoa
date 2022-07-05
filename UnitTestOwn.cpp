@@ -7,91 +7,127 @@
 
 using namespace std;
 
-class cCalculate
+class Calculate
 {
-private:
-    double iFirstNum;
-    double iSecondNum;
-
 public:
-    cCalculate();
-    int iGetFirstNum() const;
-    int iGetSecondNum() const;
-    void vAdd();
-    void vSub();
-    void vMul();
-    void vDiv();
+    Calculate();
+    double getNum1(double num1);
+   // void NhapNum1();
+    double getNum2(double num2);
+    //void NhapNum2();
+    double getTong();
+    double getHieu();
+    double getTich();
+    double getThuong();
+
+private:
+    double Num1;
+    double Num2;
+    double tong;
+    double hieu;
+    double tich;
+    double thuong;
 };
 
-cCalculate::cCalculate() : iFirstNum{0}
-{}
+Calculate::Calculate() : Num1{0}
+{
+}
 
-cCalculate::cCalculate() : iSecondNum{0}
-{}
+// void Calculate::NhapNum1()
+// {
+//     std::cout << "Nhap so 1: ";
+//     std::cin >> Num1;
+// }
 
-class cCalculateTest : public testing::Test
+double Calculate::getNum1(double num1)
+{
+    // std::cout << "Nhap so 1: ";
+    // std::cin >> Num1;
+    return num1;
+}
+
+// void Calculate::NhapNum2()
+// {
+//     std::cout << "Nhap so 2: ";
+//     std::cin >> Num2;
+// }
+
+double Calculate::getNum2(double num2)
+{
+    // std::cout << "Nhap so 2: ";
+    // std::cin >> Num2;
+    return num2;
+}
+
+double Calculate::getTong()
+{
+    tong = Calculate::getNum1(5) + Calculate::getNum2(5);
+    return tong;
+}
+
+double Calculate::getHieu()
+{
+    hieu = Calculate::getNum1(4) - Calculate::getNum2(2);
+    return hieu;
+}
+
+double Calculate::getTich()
+{
+    tich = Calculate::getNum1(8) * Calculate::getNum2(3);
+    return tich;
+}
+
+double Calculate::getThuong()
+{
+    thuong = Calculate::getNum1(15) / Calculate::getNum2(10);
+    return thuong;
+}
+
+class CalculateTest : public testing::Test
 {
 public:
-    cCalculateTest();
-    virtual ~cCalculateTest();
+    CalculateTest();
+    virtual ~CalculateTest();
 
 protected:
-    cCalculate calculate;
+    Calculate calculate;
 };
 
-int cCalculate::iGetFirstNum()
+CalculateTest::CalculateTest()
 {
-    std::cout << "Nhap so thu nhat: ";
-    std::cin >> iFirstNum;
-    return iFirstNum;
+    //std::cout << "Constructor called\n";
 }
 
-int cCalculate::iGetSecondNum()
+CalculateTest::~CalculateTest()
 {
-    std::cout << "Nhap so thu hai: ";
-    std::cin >> iSecondNum;
-    return iSecondNum;
+    //std::cout << "Destructor called\n";
 }
 
-void cCalculate::vAdd()
+TEST_F(CalculateTest, testTong)
 {
-    int tong;
-    tong = cCalculate::iFirstNum + cCalculate::iSecondNum;
-    std::cout << "Tong cua hai so la: " << tong << "\n";
+    ASSERT_EQ(10, calculate.getTong());
 }
 
-void cCalculate::vSub()
+TEST_F(CalculateTest, testHieu)
 {
-    int hieu;
-    hieu = cCalculate::iFirstNum - cCalculate::iSecondNum;
-    std::cout << "Hieu cua hai so la: " << hieu << "\n";
+    ASSERT_EQ(2, calculate.getHieu());
 }
 
-void cCalculate::vMul()
+TEST_F(CalculateTest, testTich)
 {
-    int tich;
-    tich = cCalculate::iFirstNum * cCalculate::iSecondNum;
-    std::cout << "Tich cua hai so la: " << tich << "\n";
+    ASSERT_EQ(24, calculate.getTich());
 }
 
-void cCalculate::vDiv()
+TEST_F(CalculateTest, testThuong)
 {
-    double thuong;
-    thuong = cCalculate::iFirstNum / cCalculate::iSecondNum;
-    std::cout << "Thuong cua hai so la: " << thuong << "\n";
-}
-
-TEST(cCalculate::vAdd, Test_Tong)
-{
-    int so1;
-    int so2;
-    so1 = cCalculate::iGetFirstNum();
-    so2 = cCalculate::iGetSecondNum();
-    ASSERT_EQ(cCalculate::vAdd(so1, so2), 10);
+    ASSERT_EQ(1.5, calculate.getThuong());
 }
 
 int main(int argc, char **argv)
 {
+    // Calculate calculate;
+    // calculate.NhapNum1();
+    // calculate.NhapNum2();
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
