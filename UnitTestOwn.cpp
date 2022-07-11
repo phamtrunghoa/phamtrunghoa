@@ -7,127 +7,105 @@
 
 using namespace std;
 
-class Calculate
+class Calculation
 {
 public:
-    Calculate();
-    double getNum1(double num1);
-   // void NhapNum1();
-    double getNum2(double num2);
-    //void NhapNum2();
-    double getTong();
-    double getHieu();
-    double getTich();
-    double getThuong();
+    Calculation(double num1, double num2);
+    ~Calculation();
+    double getTotal();
+    double getSubtract();
+    double getMultiply();
+    double getDivision();
 
 private:
-    double Num1;
-    double Num2;
-    double tong;
-    double hieu;
-    double tich;
-    double thuong;
+    double _firstNum;
+    double _secondNum;
+    double _total;
+    double _subtract;
+    double _multiply;
+    double _division;
 };
 
-Calculate::Calculate() : Num1{0}
+Calculation::Calculation(double num1, double num2)
+{
+    _firstNum = num1;
+    _secondNum = num2;
+}
+
+Calculation::~Calculation()
 {
 }
 
-// void Calculate::NhapNum1()
-// {
-//     std::cout << "Nhap so 1: ";
-//     std::cin >> Num1;
-// }
-
-double Calculate::getNum1(double num1)
+double Calculation::getTotal()
 {
-    // std::cout << "Nhap so 1: ";
-    // std::cin >> Num1;
-    return num1;
+    Calculation::_total = Calculation::_firstNum + Calculation::_secondNum;
+    return Calculation::_total;
 }
 
-// void Calculate::NhapNum2()
-// {
-//     std::cout << "Nhap so 2: ";
-//     std::cin >> Num2;
-// }
-
-double Calculate::getNum2(double num2)
+double Calculation::getSubtract()
 {
-    // std::cout << "Nhap so 2: ";
-    // std::cin >> Num2;
-    return num2;
+    Calculation::_subtract = Calculation::_firstNum - Calculation::_secondNum;
+    return Calculation::_subtract;
 }
 
-double Calculate::getTong()
+double Calculation::getMultiply()
 {
-    tong = Calculate::getNum1(5) + Calculate::getNum2(5);
-    return tong;
+    Calculation::_multiply = Calculation::_firstNum * Calculation::_secondNum;
+    return Calculation::_multiply;
 }
 
-double Calculate::getHieu()
+double Calculation::getDivision()
 {
-    hieu = Calculate::getNum1(4) - Calculate::getNum2(2);
-    return hieu;
-}
-
-double Calculate::getTich()
-{
-    tich = Calculate::getNum1(8) * Calculate::getNum2(3);
-    return tich;
-}
-
-double Calculate::getThuong()
-{
-    thuong = Calculate::getNum1(15) / Calculate::getNum2(10);
-    return thuong;
+    Calculation::_division = Calculation::_firstNum / Calculation::_secondNum;
+    return Calculation::_division;
 }
 
 class CalculateTest : public testing::Test
 {
 public:
-    CalculateTest();
-    virtual ~CalculateTest();
+    Calculation *_pCalculation;
 
 protected:
-    Calculate calculate;
+    void SetUp()
+    {
+    }
+
+    void TearDown()
+    {
+        if (_pCalculation)
+        {
+            delete _pCalculation;
+            _pCalculation = NULL;
+        }
+    }
 };
 
-CalculateTest::CalculateTest()
+TEST_F(CalculateTest, testTotal)
 {
-    //std::cout << "Constructor called\n";
+    _pCalculation = new Calculation(15, 5);
+    ASSERT_EQ(20, _pCalculation->getTotal());
 }
 
-CalculateTest::~CalculateTest()
+TEST_F(CalculateTest, testSubtract)
 {
-    //std::cout << "Destructor called\n";
+    _pCalculation = new Calculation(15, 5);
+    ASSERT_EQ(10, _pCalculation->getSubtract());
 }
 
-TEST_F(CalculateTest, testTong)
+TEST_F(CalculateTest, testMultiply)
 {
-    ASSERT_EQ(10, calculate.getTong());
+    _pCalculation = new Calculation(15, 5);
+    ASSERT_EQ(75, _pCalculation->getMultiply());
 }
 
-TEST_F(CalculateTest, testHieu)
+TEST_F(CalculateTest, testDivision)
 {
-    ASSERT_EQ(2, calculate.getHieu());
-}
-
-TEST_F(CalculateTest, testTich)
-{
-    ASSERT_EQ(24, calculate.getTich());
-}
-
-TEST_F(CalculateTest, testThuong)
-{
-    ASSERT_EQ(1.5, calculate.getThuong());
+    _pCalculation = new Calculation(15, 5);
+    ASSERT_EQ(3, _pCalculation->getDivision());
 }
 
 int main(int argc, char **argv)
 {
-    // Calculate calculate;
-    // calculate.NhapNum1();
-    // calculate.NhapNum2();
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
