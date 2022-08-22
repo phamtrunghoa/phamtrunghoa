@@ -197,3 +197,44 @@ int main()
     cout << tong.Getnum1() << "\n";
     return 0;
 }
+
+//***************************************//
+
+#include <iostream>
+
+using namespace std;
+
+class Number
+{
+private:
+    int num;
+
+public:
+    Number(int numb = 0)
+    {
+        num = numb;
+    }
+    friend ostream &operator<<(ostream &out, const Number &c);
+    friend istream &operator>>(istream &in, Number &c);
+};
+
+ostream &operator<<(ostream &out, const Number &c)
+{
+    cout << "so vua nhap la: ";
+    out << c.num << endl;
+    return out;
+}
+
+istream &operator>>(istream &in, Number &c)
+{
+    in >> c.num;
+    return in;
+}
+
+int main()
+{
+    Number a;
+    cin >> a;
+    cout << a;
+    return 0; 
+}
