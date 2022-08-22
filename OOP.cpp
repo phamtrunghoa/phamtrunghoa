@@ -166,6 +166,12 @@ public:
     {
         num2 = Num2;
     }
+    // Number operator+(const Number &a)
+    // {
+    //     Number result;
+    //     result.num1 = num1 + a.num2;
+    //     return result;
+    // }
     Number Add(const Number &a)
     {
         Number result;
@@ -187,7 +193,7 @@ int main()
     Number num, num2;
     num.Setnum1(10);
     num2.Setnum2(40);
-    tong = num.Add(num2);
+    tong = num + num2;
     cout << tong.Getnum1() << "\n";
     return 0;
 }
