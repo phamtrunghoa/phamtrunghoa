@@ -47,7 +47,7 @@
 //     return 0;
 // }
 
-//***************************************//
+// //***************************************//
 
 // #include <stdio.h>
 // #include <iostream>
@@ -61,6 +61,11 @@
 //     int MauSo;
 
 // public:
+//     PhanSo(int tuso = 0, int mauso = 1)
+//     {
+//         this->TuSo = tuso;
+//         this->MauSo = mauso;
+//     }
 //     int GetTuSo()
 //     {
 //         return TuSo;
@@ -77,7 +82,21 @@
 //     {
 //         MauSo = mauso;
 //     }
-//     PhanSo operator +(const PhanSo &a)
+//     bool operator==(const PhanSo &a)
+//     {
+//         return (this->TuSo * a.MauSo == this->MauSo * a.TuSo);
+//     }
+//     bool operator!=(const PhanSo &a)
+//     {
+//         return !(*this == a);
+//     }
+//     friend ostream &operator<<(ostream &os, const PhanSo &a)
+//     {
+//         os << a.TuSo << "/" << a.MauSo << endl;
+//         // os << a.str();
+//         return os;
+//     }
+//     PhanSo operator+(const PhanSo &a)
 //     {
 //         PhanSo c;
 //         c.TuSo = this->TuSo * a.MauSo + a.TuSo * this->MauSo;
@@ -94,147 +113,141 @@
 //     b.SetTuSo(1);
 //     b.SetMauSo(2);
 //     c = a + b;
-//     cout << c.GetTuSo() << "/" << c.GetMauSo() << endl;
+//     cout << c;
+//     cout << (a == b) << endl;
+//     cout << (a != b) << endl;
 //     return 0;
 // }
 //***************************************//
 
-#include <stdio.h>
-#include <iostream>
+// #include <stdio.h>
+// #include <iostream>
 
-using namespace std;
+// using namespace std;
 
-class Number
-{
-private:
-    int num1;
+// class Number
+// {
+// private:
+//     int num1;
 
-public:
-    int Getnum1()
-    {
-        return num1;
-    }
-    void Setnum1(int Num1)
-    {
-        num1 = Num1;
-    }
-    int Add(const Number &a)
-    {
-        return num1 + a.num1;
-    }
-};
+// public:
+//     int Getnum1()
+//     {
+//         return num1;
+//     }
+//     void Setnum1(int Num1)
+//     {
+//         num1 = Num1;
+//     }
+//     int Add(const Number &a)
+//     {
+//         return num1 + a.num1;
+//     }
+// };
 
-int main()
-{
-    int tong;
-    Number num, num2;
-    num.Setnum1(10);
-    num2.Setnum1(20);
-    tong = num.Add(num2);
-    cout << tong << "\n";
-    return 0;
-}
-
-
-//***************************************//
+// int main()
+// {
+//     int tong;
+//     Number num, num2;
+//     num.Setnum1(10);
+//     num2.Setnum1(20);
+//     tong = num.Add(num2);
+//     cout << tong << "\n";
+//     return 0;
+// }
 
 #include <stdio.h>
 #include <iostream>
 
 using namespace std;
 
-class Number
+class ConsecutiveArray
 {
 private:
-    int num1;
-    int num2;
+    int *arr;
+    int from;
+    int to;
+    int size;
 
 public:
-    int Getnum1()
+    ConsecutiveArray(int From, int To)
     {
-        return num1;
+        this->size = To - From + 1;
+        this->from = From;
+        this->to = To;
+        this->arr = new int[this->size];
+        for (int i = 0; i < this->size; i++)
+        {
+            *(arr + i) = i + From;
+        }
     }
-    void Setnum1(int Num1)
+    void Xuat()
     {
-        num1 = Num1;
+        for (int i = 0; i < this->size; i++)
+        {
+            cout << *(arr + i) << " ";
+        }
     }
-    int Getnum2()
+    ConsecutiveArray operator+(const ConsecutiveArray &a)
     {
-        return num2;
+        // ConsecutiveArray c(this->from, a.to);
+        // c.arr = new int[a.to - this->from];
+        if (a.to > this->from)
+        {
+            ConsecutiveArray c(this->from, a.to);
+            // c.arr = new int[this->from, a.to];
+            return c;
+        }
+        else if (a.to < this->from)
+        {
+            ConsecutiveArray c(this->from, a.to);
+            // c.arr = new int[this->from, a.to];
+            c.arr = nullptr;
+            return c;
+        }
     }
-    void Setnum2(int Num2)
+
+    bool operator==(const ConsecutiveArray &a)
     {
-        num2 = Num2;
+        // ConsecutiveArray c(this->from, a.to);
+        // c.arr = new int[a.to - this->from];
+        if (this->from == a.from && this->to == a.to)
+        {
+            return true;
+        }
+        else if (this->from != a.from || this->to != a.to)
+        {
+            return false;
+        }
     }
-    // Number operator+(const Number &a)
-    // {
-    //     Number result;
-    //     result.num1 = num1 + a.num2;
-    //     return result;
-    // }
-    Number Add(const Number &a)
+    ConsecutiveArray(const ConsecutiveArray &other)
     {
-        Number result;
-        result.num1 = num1 + a.num2;
-        return result;
+        this->from = other.from;
+        this->to = other.to;
+        this->size = other.size;
+        this->arr = new int[this->size];
+        for (int i = 0; i < this->size; i++)
+        {
+            this->arr[i] = other.arr[i];
+        }
+    }
+    ~ConsecutiveArray()
+    {
+        delete[] this->arr;
     }
 };
 
 int main()
 {
-    // int tong;
-    // Number num, num2;
-    // num.Setnum1(10);
-    // num2.Setnum1(20);
-    // tong = num.Add(num2);
-    // cout << tong << "\n";
-    // return 0;
-    Number tong;
-    Number num, num2;
-    num.Setnum1(10);
-    num2.Setnum2(40);
-    tong = num + num2;
-    cout << tong.Getnum1() << "\n";
+    ConsecutiveArray A(2, 5);
+    ConsecutiveArray B(6, 9);
+    ConsecutiveArray C(2, 9);
+    // ConsecutiveArray C(0, 0);
+    (A + B).Xuat();
+    cout << endl;
+    cout << (C == (A + B)) << endl;
+    // A.Xuat();
+    // B.Xuat();
+    //  C.Xuat();
     return 0;
-}
-
-//***************************************//
-
-#include <iostream>
-
-using namespace std;
-
-class Number
-{
-private:
-    int num;
-
-public:
-    Number(int numb = 0)
-    {
-        num = numb;
-    }
-    friend ostream &operator<<(ostream &out, const Number &c);
-    friend istream &operator>>(istream &in, Number &c);
-};
-
-ostream &operator<<(ostream &out, const Number &c)
-{
-    cout << "so vua nhap la: ";
-    out << c.num << endl;
-    return out;
-}
-
-istream &operator>>(istream &in, Number &c)
-{
-    in >> c.num;
-    return in;
-}
-
-int main()
-{
-    Number a;
-    cin >> a;
-    cout << a;
-    return 0; 
 }
