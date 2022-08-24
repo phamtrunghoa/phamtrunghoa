@@ -181,6 +181,16 @@ public:
             *(arr + i) = i + From;
         }
     }
+    ConsecutiveArray(int To)
+    {
+        this->size = To;
+        this->to = To;
+        this->arr = new int[this->size];
+        for (int i = 0; i < this->size; i++)
+        {
+            *(arr + i) = i + 1;
+        }
+    }
     void Xuat()
     {
         for (int i = 0; i < this->size; i++)
@@ -242,6 +252,7 @@ int main()
     ConsecutiveArray A(2, 5);
     ConsecutiveArray B(6, 9);
     ConsecutiveArray C(2, 9);
+    ConsecutiveArray D(5);
     // ConsecutiveArray C(0, 0);
     (A + B).Xuat();
     cout << endl;
@@ -249,5 +260,7 @@ int main()
     // A.Xuat();
     // B.Xuat();
     //  C.Xuat();
+    D.Xuat();
+    cout << endl;
     return 0;
 }
