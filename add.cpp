@@ -37,55 +37,61 @@ int main()
     return 0;
 }
 
+
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
-char *useSpell(char **spell, int nSpells, int totalMana)
-{
-    int manaUse;
-    char *arr;
-    int j = 0;
-    for (int i = 0; i < totalMana; i++)
-    {
-        while (j < nSpells)
-        {
-            if (spell[i][j] == 'a')
-            {
-                if (manaUse < totalMana)
-                {
-                    manaUse = manaUse + 1;
-                    *(arr + i) = 'a';
-                }
+char* useSpell(char **spell, int nSpells, int totalMana){
+    char* rune[]={"a","b","c","d"};
+    int totalManaSpell[nSpells];
+    for (int i=0; i<nSpells; i++){
+        totalManaSpell[i]=0;
+    }
+    for (int i=0; i<nSpells; i++){
+        for (size_t j=0; j<strlen(spell[i]); j++){
+            if (spell[i][j]==*rune[0]){
+                totalManaSpell[i]+=1;
             }
-            if (spell[i][j] == 'b')
-            {
-                if (manaUse < totalMana)
-                {
-                    manaUse = manaUse + 2;
-                    *(arr + i) = 'b';
-                }
+            if (spell[i][j]==*rune[1]){
+                totalManaSpell[i]+=2;
             }
-            if (spell[i][j] == 'c')
-            {
-                if (manaUse < totalMana)
-                {
-                    manaUse = manaUse + 3;
-                    *(arr + i) = 'c';
-                }
+            if (spell[i][j]==*rune[2]){
+                totalManaSpell[i]+=3;
             }
-            if (spell[i][j] == 'd')
-            {
-                if (manaUse < totalMana)
-                {
-                    manaUse = manaUse + 4;
-                    *(arr + i) = 'd';
-                }
+            if (spell[i][j]==*rune[3]){
+                totalManaSpell[i]+=4;
             }
-            j++;
         }
     }
-    return arr;
+    for (int i=0; i<nSpells; i++){
+        if (totalManaSpell[i]>=totalMana){
+            totalManaSpell[i]=0;
+        }
+    }
+    int max=totalManaSpell[0];
+    int indexMax=0;
+    for (int i=1; i<nSpells; i++){
+        if (totalManaSpell[i]>=max){
+            max=totalManaSpell[i];
+            indexMax=i;
+        }
+    }
+    for (size_t i=0; i<strlen(spell[indexMax]); i++){
+        if (spell[indexMax][i]==*rune[0]){
+            cout << "a";
+        }
+        if (spell[indexMax][i]==*rune[1]){
+            cout << "b";
+        }
+        if (spell[indexMax][i]==*rune[2]){
+            cout << "c";
+        }
+        if (spell[indexMax][i]==*rune[3]){
+            cout << "d";
+        }
+    }
 }
 
 #include <iostream>
@@ -154,6 +160,7 @@ public:
                 ifsmaller = 0;
             }
         }
+        return count;
     }
 };
 
